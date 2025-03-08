@@ -4,3 +4,201 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root {
+  /* fonts */
+  --font-general: Arial, sans-seriff;
+  --titles: "Nova Square", sans-seriff;
+
+  /* colors */
+  --color1: black;
+  --color2: #4C96D7;
+  --color3: white;
+  --hero-float: rgba(255, 255, 255, 0.75);
+
+
+  /* font sizes */
+  --size-normal: 15px;
+  --size-title: 2em;
+  --size-header: 1.25em;
+  --size-smaller: 0.85em;
+}
+
+body {
+  color: var(--color1);
+  font-family: var(--font-general);
+  font-size: var(--size-normal);
+}
+
+h1, h2, h3 {
+  font-family: var(--titles);
+}
+
+/* header */
+
+#top-header {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 20px 0px;
+}
+
+#top-header a{
+  text-decoration: none;
+  color: var(--color1);
+}
+
+.siteName {
+  font-family: var(--titles);
+  font-weight: bold;
+  font-size: var(--size-title);
+  color: var(--color1);
+}
+
+.siteName:visited {
+  color: var(--color1) !important;
+}
+
+#tools {
+  text-align: right;
+  justify-content: center;
+
+}
+
+/* navigation */
+nav {
+  background-color: var(--color1);
+  color: var(--color3);
+  /* margin: -10px; */
+
+}
+
+nav ul {
+  list-style-type: none;
+  padding-left: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  
+}
+
+/* main page */
+
+/* hero image */
+.hero{
+  position: relative;
+
+}
+
+.hero-holder{
+  display: grid;
+  justify-items: right;
+  width: 100%;
+}
+
+.float-hero {
+  /* font-size: var(--size-smaller); */
+  color: var(--color2);
+  background-color: var(--hero-float);
+  width: 45%;
+  position: absolute;
+  top: 25%;
+}
+
+.hero-image{
+  width: 85%;
+  height: auto;
+  /* position:absolute;
+  right: 0; */
+}
+
+.float-hero h3{
+  margin-bottom: 0;
+}
+
+.float-hero p {
+  margin: 0;
+}
+
+.float-hero a {
+  padding-top: 100px;
+}
+
+.float-hero img {
+  width: 75%;
+  height: auto;
+}
+
+/* Review list */
+#box-1 h2{
+  margin-bottom: 0px;
+}
+
+#box-1 ul{
+  padding-left: 20px;
+}
+
+#box-1 li{
+  padding: 10px 0px;
+}
+
+/* Upgrade list */
+#upgrade-list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2%;
+  row-gap: 2%;
+  width: 100%;
+}
+
+#upgrade-list a{
+  display: block;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 2%;
+}
+
+.upgrad-img {
+  width: 200px;
+  height: 100px;
+  background-color: var(--color2);
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+@media screen and (min-width: 617px){
+  body {
+    background-image: url("../images/site/checkerboard.jpg");
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
+  #wrapper{
+    width: 75%;
+    border: solid 5px var(--color2);
+    border-radius: 25px;
+    background-color: var(--color3);
+    margin: 50px 0px;
+    padding: 10px;
+  }
+
+  .main-box {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-flow: row-reverse;
+    column-gap: 10%;
+    justify-content: left;
+  }
+
+  #box-2{
+    width: 40%;
+    margin-left: 0;
+  }
+
+  #box-1{
+    width: 40%;
+
+  }
+}
