@@ -82,6 +82,11 @@ nav ul {
   
 }
 
+nav a {
+  color: var(--color3);
+  text-decoration: none;
+}
+
 /* main page */
 
 /* hero image */
