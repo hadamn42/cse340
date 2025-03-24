@@ -42,7 +42,7 @@ Util.buildClassificationGrid = async function(data){
         +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
         +' on CSE Motors" /></a>'
         grid += '<div class="namePrice">'
-        grid += '<hr>'
+        grid += '<hr />'
         grid += '<h2>'
         grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -59,6 +59,46 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+/* **************************************
+* Build the item detail view HTML
+* ************************************ */
+Util.buildDetailPage = async function(data){
+  let invBox
+  
+  if(data.length > 0){
+    let carTitle = data.inv_year + data.inv_make + data.inv_model
+    let milage = data.inv_miles.toLocaleString('en-US')
+    let price = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data.inv_price)
+    invBox = '<div class="inv-box">'
+    invBox += '<div class="car-image"><img scr="' + data.inv_image 
+    + '" alt="Image of' + carTitle + '" />'
+    //closes car-image
+    invBox += '</div>'
+   
+    invBox += '<div class="info-box">'
+    invBox += '<div class="car-title"> <h2>' + carTitle +'</h2></div>'
+    invBox += '<div class="quick-info"><h3>' + price + '</h3>'
+    invBox += '<p>Milage: ' + milage + '</p>'
+    // closes quick-info
+    invBox += '</div>'
+
+    invBox += '<div class="deets-box">'
+    invBox += '<ul class="deets-list">'
+    invBox += '<li>' + data.inv_description + '</li>'
+    invBox += '<li>Miles ' + milage + '</li>'
+    invBox += '<li>Exterior Color: ' + data.inv_color + '</li>'
+    invBox += '</ul>'
+    // closes deets-box
+    invBox += '</div>'
+    
+    // closes inv-box
+    invBox += '</div>'
+  } else { 
+    invBox += '<p class="notice">Sorry, no vehicle details could be found.</p>'
+  }
+  return invBox
+}
 
 /* ****************************************
  * Middleware For Handling Errors

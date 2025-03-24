@@ -7,3 +7,8 @@ const invController = require("../controllers/invController")
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
 module.exports = router;
+
+// Route to build detail by detail ID
+router.get("/detail/:detailId", invController.buildByDetailId);
+
+module.exports = router;
