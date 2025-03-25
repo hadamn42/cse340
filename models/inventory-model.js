@@ -38,10 +38,6 @@ async function getDetailByDetailId(detail_id) {
       WHERE inv_id = $1`,
       [detail_id]
     )
-    let jeff = data.rows[0]
-    let greg = Object.values(jeff)
-    // let jeff = JSON.parse(greg)
-    console.log("look here: " + greg)
     return data.rows[0]
   } catch (error) {
     console.error("getDetailByDetailId error " + error)

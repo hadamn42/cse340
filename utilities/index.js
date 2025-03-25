@@ -64,41 +64,40 @@ Util.buildClassificationGrid = async function(data){
 * Build the item detail view HTML
 * ************************************ */
 Util.buildDetailPage = async function(data){
-  let invBox
+  let invBox;
   
-  if(data.length > 0){
-    let carTitle = data.inv_year + data.inv_make + data.inv_model
-    let milage = data.inv_miles.toLocaleString('en-US')
-    let price = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data.inv_price)
-    invBox = '<div class="inv-box">'
-    invBox += '<div class="car-image"><img scr="' + data.inv_image 
-    + '" alt="Image of' + carTitle + '" />'
+  if(data){
+    let carTitle = `${data.inv_year} ${data.inv_make} ${data.inv_model}`;
+    let milage = data.inv_miles.toLocaleString('en-US');
+    let price = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data.inv_price);
+    invBox = '<div class="inv-box">';
+    invBox += '<div class="car-image"><img scr="..' + data.inv_image + '" alt="Image of ' + carTitle + '" />';
     //closes car-image
-    invBox += '</div>'
+    invBox += '</div>';
    
-    invBox += '<div class="info-box">'
-    invBox += '<div class="car-title"> <h2>' + carTitle +'</h2></div>'
-    invBox += '<div class="quick-info"><h3>' + price + '</h3>'
-    invBox += '<p>Milage: ' + milage + '</p>'
-    // closes quick-info
-    invBox += '</div>'
+    invBox += '<div class="info-box">';
+      invBox += '<div class="car-title"> <h2>' + carTitle +'</h2></div>';
+      invBox += '<div class="quick-info"><h3>' + price + '</h3>';
+        invBox += '<p>' + milage + ' Miles</p>';
+      // closes quick-info
+      invBox += '</div>';
 
-    invBox += '<div class="deets-box">'
-    invBox += '<ul class="deets-list">'
-    invBox += '<li>' + data.inv_description + '</li>'
-    invBox += '<li>Miles ' + milage + '</li>'
-    invBox += '<li>Exterior Color: ' + data.inv_color + '</li>'
-    invBox += '</ul>'
-    // closes deets-box
-    invBox += '</div>'
-    
+      invBox += '<div class="deets-box">';
+        invBox += '<ul class="deets-list">';
+        invBox += '<li>' + data.inv_description + '</li>';
+        invBox += '<li>Milage: ' + milage + '</li>';
+        invBox += '<li>Exterior Color: ' + data.inv_color + '</li>';
+        invBox += '</ul>';
+      // closes deets-box
+      invBox += '</div>';
+      
     // closes inv-box
-    invBox += '</div>'
+    invBox += '</div>';
   } else { 
-    invBox += '<p class="notice">Sorry, no vehicle details could be found.</p>'
+    invBox += '<p class="notice">Sorry, no vehicle details could be found.</p>';
   }
-  return invBox
-}
+  return invBox;
+};
 
 /* ****************************************
  * Middleware For Handling Errors
