@@ -25,14 +25,25 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByDetailId = async function (req, res, next) {
   const detail_id = req.params.detailId;
   const data = await invModel.getDetailByDetailId(detail_id);
-  const grid = await utilities.buildDetailPage(data);
+  let unitname
   let nav = await utilities.getNav();
-  const unitname = data.inv_year + " " + data.inv_make + " " + data.inv_model;
-  res.render("./inventory/detail", {
-    title: unitname,
-    nav,
-    grid,
-  });
+  if (data){
+    const grid = await utilities.buildDetailPage(data);
+    unitname = data.inv_year + " " + data.inv_make + " " + data.inv_model;
+    res.render("./inventory/detail", {
+      title: unitname,
+      nav,
+      grid,
+    });
+  }else{
+    const grid = await utilities.buildDetailPage(data);
+    unitname = "Error!";
+    res.render("./inventory/detail", {
+      title: unitname,
+      nav,
+      grid,
+    });
+  }
 };
 
 module.exports = invCont

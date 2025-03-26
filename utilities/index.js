@@ -7,20 +7,24 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
-  data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
+  if (data){
+    list += '<li><a href="/" title="Home page">Home</a></li>'
+    data.rows.forEach((row) => {
+      list += "<li>"
+      list +=
+        '<a href="/inv/type/' +
+        row.classification_id +
+        '" title="See our inventory of ' +
+        row.classification_name +
+        ' vehicles">' +
+        row.classification_name +
+        "</a>"
+      list += "</li>"
+    })
+    list += "</ul>"
+  }else{
+    list = '<p class="notice">Sorry, something is wrong with our navigation list!</p>'
+  }
   return list
 }
 
@@ -71,13 +75,15 @@ Util.buildDetailPage = async function(data){
     let milage = data.inv_miles.toLocaleString('en-US');
     let price = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data.inv_price);
     invBox = '<div class="inv-box">';
-    invBox += '<div class="car-image"><img scr="..' + data.inv_image + '" alt="Image of ' + carTitle + '" />';
+    invBox += '<div class="car-image"><img src="' + data.inv_image + '" alt="Image of ' + carTitle + '" />';
     //closes car-image
     invBox += '</div>';
    
     invBox += '<div class="info-box">';
-      invBox += '<div class="car-title"> <h2>' + carTitle +'</h2></div>';
-      invBox += '<div class="quick-info"><h3>' + price + '</h3>';
+      
+      invBox += '<div class="quick-info">';
+        invBox += '<div class="car-title"> <h2>' + carTitle +'</h2></div>';
+        invBox += '<h3>' + price + '</h3>';
         invBox += '<p>' + milage + ' Miles</p>';
       // closes quick-info
       invBox += '</div>';
