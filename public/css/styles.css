@@ -297,3 +297,12 @@ nav a:hover {
 .deets-list li{
   margin-bottom: 10px;
 }
+
+/* form validation */
+input:required:invalid, input:focus:invalid{
+  background-color: rgb(225, 96, 96);
+}
+
+input:required:valid{
+  background-color: rgb(135, 207, 135);
+}
