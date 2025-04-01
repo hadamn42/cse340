@@ -133,7 +133,7 @@ Util.buildNewInvPage = async function(req, res, next){
     newInv+= '<label for="inv_price">Price <br/>';
     newInv+= '<input type="number" id="inv_price" name="inv_price" required></label><br/>';
     newInv+= '<label for="inv_year">Year <br/>';
-    newInv+= '<input type="number" id="inv_year" name="inv_year" maxlength=4 required></label><br/>';
+    newInv+= '<input type="number" id="inv_year" name="inv_year" required></label><br/>';
     newInv+= '<label for="inv_miles">Miles <br/>';
     newInv+= '<input type="number" id="inv_miles" name="inv_miles" required></label><br/>';
     newInv+= '<label for="inv_color">color<br/>';

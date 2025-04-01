@@ -111,7 +111,7 @@ validate.newInvRules = () => {
         .withMessage("Please provide the year of the vehicle."), // on error this message is sent.
 
       // The milage is required and must be a number
-      body("inv_mile")
+      body("inv_miles")
         .trim()
         .escape()
         .notEmpty()
