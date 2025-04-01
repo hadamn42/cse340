@@ -16,10 +16,10 @@
 <% } %>
 
 <form class="account-sub" action="/account/register" method="post" >
-    <label for="account_email">First Name: <br/>
+    <label for="account_firstname">First Name: <br/>
         <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
     </label><br/>
-    <label for="account_email">Last Name: <br/>
+    <label for="account_lastname">Last Name: <br/>
         <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
     </label><br/>
     <label for="account_email">Email: <br/>
@@ -30,6 +30,6 @@
         <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         
     </label><br/>
-    <input type="submit" value="Submit" name="submit" id="REGISTER">
+    <input type="submit" value="Submit" name="submit" id="REGISTER" class="submitto">
     
 </form>

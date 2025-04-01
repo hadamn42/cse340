@@ -28,9 +28,6 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
-module.exports = Util
-
-
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -109,4 +106,47 @@ Util.buildDetailPage = async function(data){
 };
 
 
+/* **************************************
+* Build the new inventory view HTML
+* ************************************ */
+Util.buildNewInvPage = async function(req, res, next){
+  let newInv = '<div class="form-holder"><form class="new-inv" action="/inv/newinventory" method="post" >';
+
+  let data = await invModel.getClassifications();
+  if (data){
+    newInv += '<label for="classification_id">Classification <br/>';
+    newInv+= '<select id="classification_id" name="classification_id" required>';
+    newInv+= '<option value="" label="Please Select the Classification"></option>';
+    data.rows.forEach((row) => {
+      newInv+= '<option value="' + row.classification_id + '">' + row.classification_name + '</option>';
+    });
+    newInv+= '</select></label><br/><label for="inv_make">Make <br/>';
+    newInv+= '<input type="text" id="inv_make" name="inv_make" required></label><br/>';
+    newInv+= '<label for="inv_model">Model <br/>';
+    newInv+= '<input type="text" id="inv_model" name="inv_model" required></label><br/> ';
+    newInv+= '<label for="inv_description">Description <br/>';
+    newInv+= '<textarea id="inv_description" name="inv_description" required></textarea></label><br/>';
+    newInv+= '<label for="inv_image">Image Path <br/>';
+    newInv+= '<input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required></label><br/>';
+    newInv+= '<label for="inv_thumbnail">Thumbnail Path <br/>';
+    newInv+= '<input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png" required></label><br/>';
+    newInv+= '<label for="inv_price">Price <br/>';
+    newInv+= '<input type="number" id="inv_price" name="inv_price" required></label><br/>';
+    newInv+= '<label for="inv_year">Year <br/>';
+    newInv+= '<input type="number" id="inv_year" name="inv_year" maxlength=4 required></label><br/>';
+    newInv+= '<label for="inv_miles">Miles <br/>';
+    newInv+= '<input type="number" id="inv_miles" name="inv_miles" required></label><br/>';
+    newInv+= '<label for="inv_color">color<br/>';
+    newInv+= '<input type="text" id="inv_color" name="inv_color" required></label><br/>';
+    newInv+= '<input type="submit" value="Add Inventory" name="submit" id="SUBMIT" class="submitto"></form></div>';
+  }else{
+    newInv = '<p class="notice">Sorry, something is wrong with our page!</p>';
+  };
+
+  return newInv;
+
+};
+
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+module.exports = Util

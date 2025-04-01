@@ -16,6 +16,8 @@
   --color3: white;
   --link-hover: red;
   --hero-float: rgba(255, 255, 255, 0.75);
+  --validation-good: rgb(135, 207, 135);
+  --validation-bad: rgb(225, 96, 96);
 
 
   /* font sizes */
@@ -23,6 +25,8 @@
   --size-title: 2em;
   --size-header: 1.25em;
   --size-smaller: 0.85em;
+  --size-bigger: 1.15em;
+  --size-smallest: 0.75em;
 }
 
 body {
@@ -250,6 +254,11 @@ nav a:hover {
   border-radius: 15px;
 }
 
+#inv-display li img {
+  max-height: 200px;
+  width: auto;
+}
+
 .namePrice {
   text-align: center;
   height: 100%;
@@ -298,11 +307,123 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
+/* forms */
+form {
+  background-color: var(--color2);
+  padding: 15px;
+  width: 50%;
+  border-radius: 25px;
+}
+
+label {
+  margin-top: 10px;
+  font-size: var(--size-bigger);
+  font-weight: bold;
+}
+
+.password-info{
+  /* background-color: yellow; */
+  margin: -15px 0;
+  font-size: var(--size-smallest);
+  font-weight: normal;
+}
+
+input {
+  margin-bottom: 10px;
+  height: 25px;
+}
+
+.submitto{
+  padding: 15px 25px 35px 25px;
+  /* padding-bottom: 40px; */
+  align-content: center;
+  justify-content: center;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: var(--size-bigger);
+}
+
+.submitto:hover{
+  cursor: pointer;
+  background-color: var(--color1);
+  color: var(--color3);
+
+}
+
 /* form validation */
 input:required:invalid, input:focus:invalid{
-  background-color: rgb(225, 96, 96);
+  background-color: var(--validation-bad);
 }
 
 input:required:valid{
-  background-color: rgb(135, 207, 135);
+  background-color: var(--validation-good);
+}
+
+/* Management */
+.management{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2%;
+}
+
+.management a{
+  color: var(--color1);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: var(--size-title);
+  background-color: var(--color2);
+  padding: 30px;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+.management a:hover{
+  background-color: var(--validation-good);
+}
+
+/* inventory forms */
+.inv-forms {
+  justify-items: center;
+}
+
+.new-stuff, .new-inv {
+  display: grid;
+  justify-content: center !important;
+}
+
+.new-stuff label{
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  /* text-align: center; */
+}
+
+.form-holder{
+  display: grid;
+  justify-content: center;
+  width: 100%;
+}
+
+.new-inv {
+  width: 100%;
+  padding: 30px 90px;
+}
+
+.new-inv input{
+  width: 232px;
+  height: 30px;
+}
+
+#inv_description {
+  height: 200px;
+  width: 232px;
+}
+
+.new-inv select {
+  height: 30px;
+  font-size: var(--size-normal);
+}
+
+.new-inv label {
+  font-size: var(--size-bigger);
 }

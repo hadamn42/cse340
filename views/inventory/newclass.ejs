@@ -1,0 +1,27 @@
+<div class="inv-forms">
+  <% if (title) { %>
+      <h1 id="car-title"><%= title %></h1>
+      <% } else {
+        res.redirect('/')
+      } %>
+
+  <!-- Message -->
+  <% messages() %>
+  <% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+  <form class="new-stuff" action="/inv/newclass" method="post" >
+    <label for="classification_name">Add Classification <br/>
+        <input type="text" id="classification_name" name="classification_name" required>
+    </label><br/>
+
+
+    <input type="submit" value="Add Classification" name="submit" id="REGISTER" class="submitto">
+    
+  </form>
+</div>
