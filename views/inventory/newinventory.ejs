@@ -14,4 +14,39 @@
  </ul>
 <% } %>
 
-<%- ninv %>
+
+<div class="form-holder">
+  <form class="new-inv" action="/inv/newinventory" method="post" >
+    <label for="classification_id">Classification <br>
+      <%- ninv %>
+    </label><br>
+    <label for="inv_make">Make <br>
+      <input type="text" id="inv_make" name="inv_make" required>
+    </label><br>
+    <label for="inv_model">Model <br>
+      <input type="text" id="inv_model" name="inv_model" required>
+    </label><br> 
+    <label for="inv_description">Description <br>
+      <textarea id="inv_description" name="inv_description" required></textarea>
+    </label><br>
+    <label for="inv_image">Image Path <br>
+      <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required>
+    </label><br>
+    <label for="inv_thumbnail">Thumbnail Path <br>
+      <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png" required>
+    </label><br>
+    <label for="inv_price">Price <br>
+      <input type="number" id="inv_price" name="inv_price" required>
+    </label><br>
+    <label for="inv_year">Year <br>
+      <input type="number" id="inv_year" name="inv_year" required>
+    </label><br>
+    <label for="inv_miles">Miles <br>
+      <input type="number" id="inv_miles" name="inv_miles" required>
+    </label><br>
+    <label for="inv_color">color<br>
+      <input type="text" id="inv_color" name="inv_color" required>
+    </label><br>
+    <input type="submit" value="Add Inventory" name="submit" id="SUBMIT" class="submitto">
+</form>
+</div>

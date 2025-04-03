@@ -10,3 +10,11 @@
     <a href="/inv/newclass" class="management-buttons">Add a new class of vehicles!</a><br/>
     <a href="/inv/newinventory" class="management-buttons">Add a new vehicle!</a>
 </div>
+<div class="inv-mgmt">
+  <h2>Manage Inventory</h2>
+  <p>Select a classification to see and/or modify its items.</p>
+  <%- classificationSelect  %>
+  <table id="inventoryDisplay"></table>
+  <noscript>JavaScript must be enabled to use this page.</noscript>
+</div>
+<script src="../../js/inventory.js"></script>

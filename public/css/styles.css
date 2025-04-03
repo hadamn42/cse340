@@ -381,6 +381,38 @@ input:required:valid{
   background-color: var(--validation-good);
 }
 
+.inv-mgmt{
+  justify-items: center;
+}
+
+#classificationList {
+  height: 30px;
+  font-size: var(--size-bigger);
+}
+
+thead {
+  font-family: var(--titles);
+  font-size: var(--size-bigger);
+}
+
+#inventoryDisplay td{
+  padding-right: 10px;
+  padding-bottom: 25px;
+}
+
+#inventoryDisplay td a{
+  color: var(--color1);
+  text-decoration: none;
+  font-weight: bold;
+  background-color: var(--color2);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#inventoryDisplay td a:hover{
+  background-color: var(--validation-good);
+}
+
 /* inventory forms */
 .inv-forms {
   justify-items: center;
@@ -410,13 +442,13 @@ input:required:valid{
 }
 
 .new-inv input{
-  width: 232px;
+  width: 100%;
   height: 30px;
 }
 
 #inv_description {
   height: 200px;
-  width: 232px;
+  width: 100%;
 }
 
 .new-inv select {
