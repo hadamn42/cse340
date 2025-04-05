@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
+const cookieParser = require("cookie-parser")
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -154,6 +155,27 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
  /* ****************************************
+* Middleware to check credentials
+**************************************** */
+Util.checkCred = (req, res, next) => {
+
+  try{
+    const cred= res.locals.accountData.account_type
+    console.log(cred)
+    if (cred == "Employee" || cred == "Admin") {
+      next()
+    } else {
+      req.flash("You are not authorized to enter. Please enter the appropriate credentials")
+      return res.redirect("/account/login")
+    }
+  }catch(error){
+    req.flash("You are not authorized to enter. Please enter the appropriate credentials")
+    return res.redirect("/account/login")
+  }
+  
+ }
+
+ /* ****************************************
  *  Check Login
  * ************************************ */
  Util.checkLogin = (req, res, next) => {
@@ -169,12 +191,9 @@ Util.checkJWTToken = (req, res, next) => {
  *  Check Login for everything
  * ************************************ */
  Util.loginLogout = (res) => {
-  let lounk
-  console.log(res.locals.loggedin)
+  let lounk = '<a title="Click to log in" href="/account/login">My Account</a>'
   if (res.locals.loggedin){
     lounk = '<a title="Welcom Basic" href="/account/">Welcome Basic </a><a title="Logout" href="/account/logout">Logout</a>'
-  }else{
-    lounk = '<a title="Click to log in" href="/account/login">My Account</a>'
   }
   return lounk
  }

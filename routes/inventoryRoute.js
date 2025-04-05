@@ -12,10 +12,10 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:detailId", utilities.handleErrors(invController.buildByDetailId));
 
 // Route to build management page
-router.get("/management", utilities.handleErrors(invController.buildManagement));
+router.get("/management", utilities.checkCred, utilities.handleErrors(invController.buildManagement));
 
 // Route to build new classification page
-router.get("/newclass", utilities.handleErrors(invController.buildClass));
+router.get("/newclass", utilities.checkCred, utilities.handleErrors(invController.buildClass));
 
 // Route to add the new classification to the server
 router.post(
@@ -26,7 +26,7 @@ router.post(
 );
 
 // Route to build new inventory page
-router.get("/newinventory", utilities.handleErrors(invController.buildNewInv));
+router.get("/newinventory", utilities.checkCred, utilities.handleErrors(invController.buildNewInv));
 
 // Route to add new inventory
 router.post(
@@ -40,7 +40,7 @@ router.post(
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
 // Route to build inventory modifier by detail ID
-router.get("/edit/:detailId", utilities.handleErrors(invController.modifyByDetailId));
+router.get("/edit/:detailId", utilities.checkCred, utilities.handleErrors(invController.modifyByDetailId));
 
 //Route to update inventory
 router.post(
