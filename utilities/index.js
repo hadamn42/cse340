@@ -165,4 +165,18 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+/* ****************************************
+ *  Check Login for everything
+ * ************************************ */
+ Util.loginLogout = (res) => {
+  let lounk
+  console.log(res.locals.loggedin)
+  if (res.locals.loggedin){
+    lounk = '<a title="Welcom Basic" href="/account/">Welcome Basic </a><a title="Logout" href="/account/logout">Logout</a>'
+  }else{
+    lounk = '<a title="Click to log in" href="/account/login">My Account</a>'
+  }
+  return lounk
+ }
+
 module.exports = Util

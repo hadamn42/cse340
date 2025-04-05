@@ -11,10 +11,12 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   const className = data[0].classification_name
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
+    loginLink,
     grid,
   })
 };
@@ -25,14 +27,16 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByDetailId = async function (req, res, next) {
   const detail_id = req.params.detailId;
   const data = await invModel.getDetailByDetailId(detail_id);
-  let unitname
+  let unitname;
   let nav = await utilities.getNav();
+  const loginLink = await utilities.loginLogout(res);
   if (data){
     const grid = await utilities.buildDetailPage(data);
     unitname = data.inv_year + " " + data.inv_make + " " + data.inv_model;
     res.render("./inventory/detail", {
       title: unitname,
       nav,
+      loginLink,
       grid,
     });
   }else{
@@ -41,6 +45,7 @@ invCont.buildByDetailId = async function (req, res, next) {
     res.render("./inventory/detail", {
       title: unitname,
       nav,
+      loginLink,
       grid,
     });
   }
@@ -51,12 +56,14 @@ invCont.buildByDetailId = async function (req, res, next) {
  * *************************************** */
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
 
   const classificationSelect = await utilities.buildClassificationList()
 
   res.render("./inventory/management", {
     title: "Management",
     nav,
+    loginLink,
     errors: null,
     classificationSelect
   });
@@ -67,9 +74,11 @@ invCont.buildManagement = async function (req, res, next) {
  * *************************************** */
 invCont.buildClass = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
   res.render("./inventory/newclass", {
     title: "Add a New Vehicle Classification",
     nav,
+    loginLink,
     errors: null,
 
   });
@@ -80,11 +89,13 @@ invCont.buildClass = async function (req, res, next) {
  * *************************************** */
 invCont.buildNewInv = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
   // const ninv = await utilities.buildNewInvPage();
   const ninv = await utilities.buildClassificationList();
   res.render("./inventory/newinventory", {
     title: "Add a New Vehicle",
     nav,
+    loginLink,
     errors: null,
     ninv
   });
@@ -100,6 +111,8 @@ invCont.addNewClass = async function (req, res) {
   const regResult = await invModel.newClassify(classification_name)
 
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
+
   if (regResult) {
     req.flash(
       "notice",
@@ -108,6 +121,7 @@ invCont.addNewClass = async function (req, res) {
     res.status(201).render("./inventory/management", {
       title: "Inventory Management",
       nav,
+      loginLink,
       classificationSelect
     })
   } else {
@@ -115,7 +129,7 @@ invCont.addNewClass = async function (req, res) {
     res.status(501).render("./inventory/newclass", {
       title: "Add a New Vehicle Class Failed",
       nav,
-      
+      loginLink
     })
   }
 }
@@ -127,6 +141,7 @@ invCont.addNewInv = async function (req, res) {
   
   const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
   const regResult = await invModel.newInventory(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color)
   const classificationSelect = await utilities.buildClassificationList()
   const ninv = await utilities.buildClassificationList();
@@ -140,6 +155,7 @@ invCont.addNewInv = async function (req, res) {
     res.status(201).render("./inventory/management", {
       title: "Inventory Management",
       nav,
+      loginLink,
       classificationSelect
     })
   } else {
@@ -147,6 +163,7 @@ invCont.addNewInv = async function (req, res) {
     res.status(501).render("./inventory/newclass", {
       title: "Add a New Vehicle Class Failed",
       nav,
+      loginLink,
       ninv
     })
   }
@@ -169,7 +186,8 @@ invCont.getInventoryJSON = async (req, res, next) => {
  *  Build edit inventory by Detail ID
  * ************************** */
 invCont.modifyByDetailId = async function (req, res, next) {
-  let nav = await utilities.getNav()
+  let nav = await utilities.getNav();
+  const loginLink = await utilities.loginLogout(res);
   const detail_id = parseInt(req.params.detailId);
   const data = await invModel.getDetailByDetailId(detail_id);
   let itemName = data.inv_make + " " + data.inv_model;
@@ -177,6 +195,7 @@ invCont.modifyByDetailId = async function (req, res, next) {
   res.render("./inventory/edit", {
     title: "Edit " + itemName,
     nav,
+    loginLink,
     errors: null,
     ninv,
     inv_id: data.inv_id,
@@ -198,6 +217,7 @@ invCont.modifyByDetailId = async function (req, res, next) {
  * ************************** */
 invCont.updateInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res);
   const {
     inv_id,
     inv_make,
@@ -236,6 +256,7 @@ invCont.updateInventory = async function (req, res, next) {
     res.status(501).render("inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
+    loginLink,
     classificationSelect: classificationSelect,
     errors: null,
     inv_id,
@@ -257,13 +278,15 @@ invCont.updateInventory = async function (req, res, next) {
  *  Build delete confirmation by Detail ID
  * ************************** */
 invCont.deleteByDetailId = async function (req, res, next) {
-  let nav = await utilities.getNav()
+  let nav = await utilities.getNav();
+  const loginLink = await utilities.loginLogout(res);
   const detail_id = parseInt(req.params.detailId);
   const data = await invModel.getDetailByDetailId(detail_id);
   let itemName = data.inv_make + " " + data.inv_model;
   res.render("./inventory/delete", {
     title: "Delete " + itemName,
     nav,
+    loginLink,
     errors: null,
     inv_id: data.inv_id,
     inv_make: data.inv_make,
@@ -279,6 +302,7 @@ invCont.deleteByDetailId = async function (req, res, next) {
  * ************************** */
 invCont.deleteInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   const { inv_id} = req.body
   const updateResult = await invModel.removeInventory(inv_id)
 
@@ -291,6 +315,7 @@ invCont.deleteInventory = async function (req, res, next) {
     res.status(501).render("inventory/delete", {
     title: "Delete " + itemName,
     nav,
+    loginLink,
     errors: null,
     inv_id,
     inv_make,

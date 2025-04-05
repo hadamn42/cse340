@@ -9,9 +9,11 @@ require("dotenv").config()
 * *************************************** */
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
+    const loginLink = await utilities.loginLogout(res)
     res.render("account/login", {
       title: "Login",
       nav,
+      loginLink
     })
   }
   
@@ -20,9 +22,11 @@ async function buildLogin(req, res, next) {
  * *************************************** */
 async function buildRegister(req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   res.render("account/register", {
     title: "Register",
     nav,
+    loginLink,
     errors: null
   })
 }
@@ -32,6 +36,7 @@ async function buildRegister(req, res, next) {
 * *************************************** */
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
   // Hash the password before storing
@@ -44,6 +49,7 @@ async function registerAccount(req, res) {
     res.status(500).render("account/register", {
       title: "Registration",
       nav,
+      loginLink,
       errors: null,
     })
   }
@@ -63,12 +69,14 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      loginLink
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
+      loginLink
     })
   }
 }
@@ -79,6 +87,7 @@ async function registerAccount(req, res) {
  * ************************************ */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
   if (!accountData) {
@@ -86,6 +95,7 @@ async function accountLogin(req, res) {
     res.status(400).render("account/login", {
       title: "Login",
       nav,
+      loginLink,
       errors: null,
       account_email,
     })
@@ -107,6 +117,7 @@ async function accountLogin(req, res) {
       res.status(400).render("account/login", {
         title: "Login",
         nav,
+        loginLink,
         errors: null,
         account_email,
       })
@@ -121,9 +132,11 @@ async function accountLogin(req, res) {
  * *************************************** */
 async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
   res.render("account/", {
     title: "Account Management",
     nav,
+    loginLink,
     errors: null
   })
 }
