@@ -1,0 +1,38 @@
+<% if (title) { %>
+    <h1 id="car-title"><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Message -->
+<% messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<div class="form-holder">
+  <form class="new-inv" id="updateForm" action="/inv/delete" method="post" >
+    
+    <label for="inv_make">Make <br>
+      <input type="text" id="inv_make" name="inv_make" value=<%- inv_make %> readonly>
+    </label><br>
+    <label for="inv_model">Model <br>
+      <input type="text" id="inv_model" name="inv_model" value=<%- inv_model %> readonly>
+    </label><br> 
+    <label for="inv_price">Price <br>
+      <input type="number" id="inv_price" name="inv_price" value=<%- inv_price %> readonly>
+    </label><br>
+    <label for="inv_year">Year <br>
+      <input type="number" id="inv_year" name="inv_year" value=<%- inv_year %> readonly>
+    </label><br>
+    <input type="submit" value="Delete Vehicle FOREVER" name="submit" id="SUBMIT" class="submitto" >
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+</form>
+</div>
