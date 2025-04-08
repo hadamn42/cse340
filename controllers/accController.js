@@ -133,12 +133,130 @@ async function accountLogin(req, res) {
 async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
   const loginLink = await utilities.loginLogout(res)
+  let execContent = await utilities.isAdEmp(res)
+  let name = res.locals.accountData.account_firstname
   res.render("account/", {
     title: "Account Management",
     nav,
     loginLink,
+    name,
+    execContent,
     errors: null
   })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement }
+/* ****************************************
+ *  Deliver account update view
+ * *************************************** */
+async function buildUpdate(req, res, next) {
+  let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
+  
+  const data = await accountModel.getAccountById(res.locals.accountData.account_id)
+  
+  res.render("account/update", {
+    title: "Account Update",
+    nav,
+    loginLink,
+    errors: null,
+    account_id: data.account_id,
+    account_firstname: data.account_firstname,
+    account_lastname: data.account_lastname,
+    account_email: data.account_email
+    
+  })
+}
+
+/* ****************************************
+*  Process Account Update
+* *************************************** */
+async function updateAccount(req, res) {
+  let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+
+  
+  const regResult = await accountModel.submitUpdate(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  )
+  let execContent = await utilities.isAdEmp(res)
+  let name = res.locals.accountData.account_firstname
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, account has been updated.`
+    )
+    res.status(201).render("account/", {
+      title: "Account Management",
+      nav,
+      loginLink,
+      name,
+      execContent
+    })
+  } else {
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("account/update", {
+      title: "Account Update",
+      nav,
+      loginLink,
+      name,
+      execContent,
+    })
+  }
+}
+
+/* ****************************************
+*  Process Password Update
+* *************************************** */
+async function passwordUpdate(req, res) {
+  let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
+  const { account_firstname, account_lastname, account_email, account_password, account_id } = req.body
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error updating the password.')
+    res.status(500).render("account/update", {
+      title: "Account Update",
+      nav,
+      loginLink,
+      errors: null,
+    })
+  }
+
+  const regResult = await accountModel.submitNewPassword(
+    account_id,
+    hashedPassword
+  )
+  let execContent = await utilities.isAdEmp(res)
+  let name = res.locals.accountData.account_firstname
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, the password has been updated.`
+    )
+    res.status(201).render("account/", {
+      title: "Account Management",
+      nav,
+      loginLink,
+      name,
+      execContent
+    })
+  } else {
+    req.flash("notice", "Sorry, the password update failed.")
+    res.status(501).render("account/update", {
+      title: "Account Update",
+      nav,
+      loginLink
+    })
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, buildUpdate, updateAccount, passwordUpdate }

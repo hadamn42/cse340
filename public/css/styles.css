@@ -235,6 +235,24 @@ nav a:hover {
     width: 49%
   }
 
+  /* Account update page */
+  #update-password{
+    margin-top: 0 !important;
+    display: grid;
+  }
+
+  .account-upd {
+    height: 250px;
+    width: 40% !important;
+
+  }
+
+  #updatePassword{
+    align-self:self-end;
+    width: 112px;
+    margin-bottom: 0;
+  }
+
  
 }
 
@@ -359,14 +377,14 @@ input:required:valid{
   background-color: var(--validation-good);
 }
 
-/* Management */
+/* Inventory Management */
 .management{
   display: flex;
   flex-wrap: wrap;
   column-gap: 2%;
 }
 
-.management a{
+.management-buttons{
   color: var(--color1);
   text-decoration: none;
   font-weight: bold;
@@ -377,7 +395,7 @@ input:required:valid{
   margin-bottom: 10px;
 }
 
-.management a:hover{
+.management-buttons:hover{
   background-color: var(--validation-good);
 }
 
@@ -458,4 +476,39 @@ thead {
 
 .new-inv label {
   font-size: var(--size-bigger);
+}
+
+/* Account Management */
+.welcome-box{
+  display: grid;
+}
+
+.welcome-box a{
+  width: 45%;
+  text-align: center;
+}
+
+#management-tools{
+  display: grid;
+  margin-top: 25px;
+  margin-bottom: 35px;
+}
+
+/* Account Update Page */
+#account-update{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5%;
+}
+
+#update-password{
+  margin-top: 20px;
+}
+
+.account-upd{
+  width: 300px;
+}
+
+.account-upd p{
+  margin-bottom: 20px;
 }

@@ -198,4 +198,16 @@ Util.checkCred = (req, res, next) => {
   return lounk
  }
 
+ /* ****************************************
+ *  Build Management tools for Admin/Employee
+ * ************************************ */
+ Util.isAdEmp = (res) => {
+  let content
+  const cred= res.locals.accountData.account_type
+  if (cred == "Employee" || cred == "Admin"){
+    content = '<p><a href="/inv/management" class="management-buttons">Inventory Management</a></p>'
+  }
+  return content
+ }
+
 module.exports = Util

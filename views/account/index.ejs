@@ -7,5 +7,9 @@
 
 <!-- Message -->
 <% messages() %>
-
-<p>You're logged in!</p>
+<div class="welcome-box">
+  <h2>Welcome, <%- name %>!</h2>
+  <p>You're logged in!</p>
+  <a href="/account/update" class="management-buttons">Update your information!</a>
+</div>
+<div id="management-tools"><%- execContent %></div>

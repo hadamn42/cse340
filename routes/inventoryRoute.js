@@ -50,7 +50,7 @@ router.post(
     utilities.handleErrors(invController.updateInventory));
 
 // Route to build delete confirmation by detail ID
-router.get("/delete/:detailId", utilities.handleErrors(invController.deleteByDetailId));
+router.get("/delete/:detailId", utilities.checkCred, utilities.handleErrors(invController.deleteByDetailId));
 
 //Route to delete inventory
 router.post("/delete/", utilities.handleErrors(invController.deleteInventory));

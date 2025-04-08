@@ -30,4 +30,22 @@ router.post(
 // Route to build account management page
 router.get("/", utilities.checkLogin, utilities.handleErrors(accController.buildManagement));
 
+// Route to build account management page
+router.get("/update", utilities.checkLogin, utilities.handleErrors(accController.buildUpdate));
+
+// Route to update account data
+router.post(
+    "/update", 
+    regValidate.updateRules(), 
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accController.updateAccount));
+
+
+// Route to update password
+router.post(
+    "/update-password", 
+    regValidate.passwordRules(), 
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accController.passwordUpdate));
+
 module.exports = router;
