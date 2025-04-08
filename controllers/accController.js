@@ -2,6 +2,7 @@ const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+
 require("dotenv").config()
 
 /* ****************************************
@@ -259,4 +260,18 @@ async function passwordUpdate(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, buildUpdate, updateAccount, passwordUpdate }
+/* ****************************************
+*  Complete the logout
+* *************************************** */
+async function longOut(req, res, next) {
+  res.clearCookie("jwt")
+  res.locals.loggedin = false
+  console.log(res.locals.loggedin)
+  let nav = await utilities.getNav()
+  const loginLink = await utilities.loginLogout(res)
+  res.render("index", {title: "Home", nav, loginLink})
+
+}
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, buildUpdate, updateAccount, passwordUpdate, longOut }

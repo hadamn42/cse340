@@ -48,4 +48,7 @@ router.post(
     regValidate.checkPasswordData,
     utilities.handleErrors(accController.passwordUpdate));
 
+// Route to build account management page
+router.get("/logout", utilities.handleErrors(accController.longOut));
+
 module.exports = router;
