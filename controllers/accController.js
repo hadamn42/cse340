@@ -269,7 +269,7 @@ async function longOut(req, res, next) {
   console.log(res.locals.loggedin)
   let nav = await utilities.getNav()
   const loginLink = await utilities.loginLogout(res)
-  res.render("index", {title: "Home", nav, loginLink})
+  res.redirect("/")
 
 }
 
