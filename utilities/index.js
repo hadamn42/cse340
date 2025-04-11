@@ -232,7 +232,7 @@ Util.buildUserList = async function (userId) {
    dataTable += `<tr><td>${element.account_firstname} ${element.account_lastname}</td><td>${element.account_type}</td>`; 
    dataTable += `<td><a href='/account/edituser/${element.account_id}' title='Click to update'>Modify</a></td>`;
     if (element.account_id == userId){
-      dataTable += `<td> <a href='#' title='Cannot delete yourself' disabled class='disableed' >Delete</a></td></tr>`;
+      dataTable += `<td> <a  title='Cannot delete yourself' disabled class='disableed' >Delete</a></td></tr>`;
     }else{ 
       dataTable += `<td> <a href='/account/deleteuser/${element.account_id}' title='Click to delete'>Delete</a></td></tr>`; 
     };
