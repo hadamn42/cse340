@@ -30,7 +30,7 @@ async function checkExistingEmail(account_email){
 * ***************************** */
 async function getAccountByEmail (account_email) {
   try {
-    console.log("WORKS HERE")
+
     const result = await pool.query(
       'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
       [account_email])
@@ -78,4 +78,52 @@ async function submitNewPassword(account_id, account_password){
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, submitUpdate, submitNewPassword }
+/* ***************************
+ *  Get all users
+ * ************************** */
+async function getAllUsers() {
+  try {
+    const data = await pool.query(`SELECT * FROM public.account ORDER BY account_id`)
+
+    return data.rows
+  } catch (error) {
+    console.error("getclassificationsbyid error " + error)
+  }
+}
+
+/* *****************************
+*   Register new account
+* *************************** */
+async function registerNewUser(account_firstname, account_lastname, account_email, account_password, account_type){
+  try {
+    const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, $5) RETURNING *"
+    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password, account_type])
+  } catch (error) {
+    return error.message
+  }
+}
+removeUser
+/* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+async function removeUser(account_id) {
+  try {
+    const sql = "DELETE FROM account WHERE account_id = $1";
+    const data = await pool.query(sql, [account_id])
+    return data
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+async function submitUserUpdate(account_id, account_firstname, account_lastname, account_email, account_type){
+
+  try {
+    const sql = "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3, account_type = $4 WHERE account_id = $5 RETURNING *"
+    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_type, account_id])
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, submitUpdate, submitNewPassword, getAllUsers, registerNewUser, removeUser, submitUserUpdate }

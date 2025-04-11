@@ -1,0 +1,36 @@
+<% if (title) { %>
+    <h1 id="car-title"><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Message -->
+<% messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<div class="form-holder">
+  <form class="new-inv" id="updateForm" action="/account/deleteuser" method="post" >
+    
+    <label for="account_firstname">First Name <br>
+      <input type="text" id="account_firstname" name="account_firstname" value=<%- account_firstname %> readonly>
+    </label><br>
+    <label for="account_lastname">Last Name <br>
+      <input type="text" id="account_lastname" name="account_lastname" value=<%- account_lastname %> readonly>
+    </label><br> 
+    <label for="account_email">email <br>
+      <input type="email" id="account_email" name="account_email" value=<%- account_email %> readonly>
+    </label><br>
+    <label for="account_type">Account Type <br>
+        <input type="text" id="account_type" name="account_type" value=<%- account_type %> readonly>
+      </label><br>
+    <input type="submit" value="Delete User FOREVER" name="submit" id="SUBMIT" class="submitto" >
+    <input type="hidden" name="account_id" value="<%- account_id %>">
+</form>
+</div>

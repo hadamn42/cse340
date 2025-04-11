@@ -48,7 +48,37 @@ router.post(
     regValidate.checkPasswordData,
     utilities.handleErrors(accController.passwordUpdate));
 
-// Route to build account management page
+// Route to log out
 router.get("/logout", utilities.handleErrors(accController.longOut));
+
+// Route to build account manager page
+router.get("/managing", utilities.checkLogin, utilities.handleErrors(accController.buildAccMgmt));
+
+// Route to build add new user
+router.get("/newuser", utilities.checkLogin, utilities.handleErrors(accController.buildNewUser));
+
+// Route to send the new user to the server
+router.post(
+    "/newuser",
+    regValidate.registationRules(),
+    regValidate.checkRegData,
+    utilities.handleErrors(accController.addNewUser)
+)
+
+// Route to build delete user
+router.get("/deleteuser/:accountId", utilities.checkLogin, utilities.handleErrors(accController.buildDeleteUser));
+
+// route to remove user from database
+router.post("/deleteuser", utilities.handleErrors(accController.deleteUser));
+
+// Route to build modify user
+router.get("/edituser/:accountId", utilities.checkLogin, utilities.handleErrors(accController.buildEditUser));
+
+// Route to update user data
+router.post(
+    "/edituser", 
+    regValidate.updateRules(), 
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accController.updateUser));
 
 module.exports = router;

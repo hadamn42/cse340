@@ -1,0 +1,16 @@
+<% if (title) { %>
+    <h1 id="car-title"><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Message -->
+<% messages() %>
+<div class="management">
+    <a href="/account/newuser" class="management-buttons">Add a new user!</a><br>
+</div>
+<div class="user-mgmt">
+  <h2>Manage Users</h2>
+  <table id="userDisplay">  <%- userSelect  %> </table>
+</div>
+

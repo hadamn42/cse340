@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accModel = require("../models/account-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -203,11 +204,42 @@ Util.checkCred = (req, res, next) => {
  * ************************************ */
  Util.isAdEmp = (res) => {
   let content
-  const cred= res.locals.accountData.account_type
-  if (cred == "Employee" || cred == "Admin"){
+  const cred = res.locals.accountData.account_type
+  if (cred == "Employee"){
     content = '<p><a href="/inv/management" class="management-buttons">Inventory Management</a></p>'
+  }else if(cred == "Admin"){
+    content = '<p><a href="/inv/management" class="management-buttons">Inventory Management</a></p>'
+    content += '<p id="user-mgmt"><a href="/account/managing" class="management-buttons">User Management</a></p>'
   }
   return content
  }
+
+ /* ****************************************
+ *  Build User List
+ * ************************************ */
+Util.buildUserList = async function (userId) {
+  let data = await accModel.getAllUsers()
+  
+    // Set up the table labels 
+  let dataTable = '<thead>'; 
+  dataTable += '<tr><th>Name</th><th>Role</th><td>&nbsp;</td><td>&nbsp;</td></tr>'; 
+  dataTable += '</thead>'; 
+  // Set up the table body 
+  dataTable += '<tbody>'; 
+  // Iterate over all vehicles in the array and put each in a row 
+  data.forEach(function (element) { 
+   console.log(element.account_id + ", " + element.account_email); 
+   dataTable += `<tr><td>${element.account_firstname} ${element.account_lastname}</td><td>${element.account_type}</td>`; 
+   dataTable += `<td><a href='/account/edituser/${element.account_id}' title='Click to update'>Modify</a></td>`;
+    if (element.account_id == userId){
+      dataTable += `<td> <a href='#' title='Cannot delete yourself' disabled class='disableed' >Delete</a></td></tr>`;
+    }else{ 
+      dataTable += `<td> <a href='/account/deleteuser/${element.account_id}' title='Click to delete'>Delete</a></td></tr>`; 
+    };
+  }) 
+  dataTable += '</tbody>'; 
+
+  return dataTable
+};
 
 module.exports = Util

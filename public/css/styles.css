@@ -459,7 +459,7 @@ thead {
   padding: 30px 90px;
 }
 
-.new-inv input{
+.new-inv input {
   width: 100%;
   height: 30px;
 }
@@ -469,7 +469,7 @@ thead {
   width: 100%;
 }
 
-.new-inv select {
+.new-inv select, .account-sub select {
   height: 30px;
   font-size: var(--size-normal);
 }
@@ -494,6 +494,10 @@ thead {
   margin-bottom: 35px;
 }
 
+#user-mgmt{
+  margin-top: 65px;
+}
+
 /* Account Update Page */
 #account-update{
   display: flex;
@@ -510,5 +514,54 @@ thead {
 }
 
 .account-upd p{
+  margin-bottom: 20px;
+}
+
+/* user management  */
+
+.disableed {
+  background-color: rgb(197, 196, 196) !important;
+  color: rgb(93, 93, 93) !important;
+}
+
+.disableed:hover{
+  cursor:not-allowed !important;
+}
+
+#userDisplay{
+  text-align: left;
+}
+
+#userDisplay td{
+  padding-right: 10px;
+  padding-bottom: 25px;
+}
+
+#userDisplay td a{
+  color: var(--color1);
+  text-decoration: none;
+  font-weight: bold;
+  background-color: var(--color2);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#userDisplay td a:hover{
+  background-color: var(--validation-good);
+}
+
+/* new user */
+.account-sub input{
+  width: 218px;
+  height: 28px;
+  margin-bottom: 20px;
+}
+
+.account-sub p{
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.account-sub select{
   margin-bottom: 20px;
 }

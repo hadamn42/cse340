@@ -1,0 +1,53 @@
+<!-- heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Message -->
+<% messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+<!-- set option -->
+ <% let option1 = "" %>
+ <% let option2 = "" %>
+ <% let option3 = "" %>
+ <% if(account_type == "Client"){ %>
+    <% option1 = "selected" %>
+<% } else if (account_type == "Employee") { %>
+    <% option2 = "selected" %>
+<% } else if (account_type == "Manager") { %>
+    <% option3 = "selected" %>
+<% } %>
+
+
+
+<form class="account-sub" action="/account/edituser" method="post" >
+    <label for="account_type">Account Type: <br>
+        <select id="account_type" name="account_type" required >
+            <option value="">Please select the accout type</option>
+            <option value="Client" <%- option1 %>>Client</option>
+            <option value="Employee" <%- option2 %>>Employee</option>
+            <option value="Admin" <%- option3 %>>Admin</option>
+        </select>
+    </label><br>
+    <label for="account_firstname">First Name: <br>
+        <input type="text" id="account_firstname" name="account_firstname" required value="<%- account_firstname %>">
+    </label><br>
+    <label for="account_lastname">Last Name: <br>
+        <input type="text" id="account_lastname" name="account_lastname" required value="<%- account_lastname %>">
+    </label><br>
+    <label for="account_email">Email: <br>
+        <input type="email" id="account_email" name="account_email" required value="<%- account_email %>">
+    </label><br>
+   
+    <input type="submit" value="Submit" name="submit" id="REGISTER" class="submitto">
+    <input type="hidden" name="account_id" value="<%- account_id %>">
+</form>
