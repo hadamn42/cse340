@@ -102,7 +102,7 @@ async function registerNewUser(account_firstname, account_lastname, account_emai
     return error.message
   }
 }
-removeUser
+
 /* ***************************
  *  Delete Inventory Data
  * ************************** */
