@@ -104,7 +104,7 @@ async function registerNewUser(account_firstname, account_lastname, account_emai
 }
 
 /* ***************************
- *  Delete Inventory Data
+ *  Delete User Data
  * ************************** */
 async function removeUser(account_id) {
   try {
@@ -116,6 +116,9 @@ async function removeUser(account_id) {
   }
 }
 
+/* ***************************
+ *  Update User Data
+ * ************************** */
 async function submitUserUpdate(account_id, account_firstname, account_lastname, account_email, account_type){
 
   try {
